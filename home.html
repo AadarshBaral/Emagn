@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          fontFamily: {
+            arvo: ["Arvo"],
+          },
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="font-['Arvo'] bg-slate-100">
+    <!-- <form action="" method="POST">
+        <textarea name="text" id="text" cols="30" rows="10" placeholder="prompt"></textarea>
+        <input type="submit">
+    </form> -->
+    <!-- <h1>Hi This is OpenAI chat</h1> -->
+    <!-- <p>
+        {{ data }}
+    </p> -->
+
+    <nav class="p-3 border-gray-200 border-2">
+      <div
+        class="container flex flex-wrap items-center justify-between mx-auto"
+      >
+        <div class="flex mx-auto mt-auto">
+          <div>
+            <span
+              class="text-center text-3xl font-extrabold text-slate-700  cursor-default"
+              >Emagn</span
+            >
+          </div>
+
+          <div>
+            <a target="_blank" href="https://twitter.com/AdashBaral">
+              <span
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="fill-slate-700 mt-2 ml-4"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"
+                  /></svg
+              ></span>
+            </a>
+          </div>
+        </div>
+
+        <button
+          id="navbar-button"
+          data-collapse-toggle="navbar-hamburger"
+          type="button"
+          class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg hover:text-gray-100 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          aria-controls="navbar-hamburger"
+          aria-expanded="false"
+        >
+          <svg
+            class="w-6 h-6"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </button>
+        <div
+          class="hidden h-[20vh] navbar-hidden absolute right-3 top-20 w-[200px] rounded-md bg-slate-300 z-10 border-2 border-slate-700"
+          id="navbar-hamburger"
+        >
+          <ul
+            class="text-sm flex flex-col justify-center items-center h-[100%]"
+          >
+            <a
+              class="w-[100%]"
+              target="_blank"
+              href="https://aadarshbaral.github.io/portfolio/"
+            >
+              <li
+                class="bg-slate-200 hover:bg-slate-300 w-[100%] mb-1 p-2 text-center"
+              >
+                About Me
+              </li>
+            </a>
+            <a
+              class="w-[100%]"
+              target="_blank"
+              href="https://twitter.com/AdashBaral"
+            >
+              <li
+                class="bg-slate-200 hover:bg-slate-300 w-[100%] mb-1 p-2 text-center"
+              >
+                Find Me On Twitter
+              </li>
+            </a>
+            <a
+              class="w-[100%]"
+              target="_blank"
+              href="https://www.instagram.com/a_dash_baral/"
+            >
+              <li
+                class="bg-slate-200 hover:bg-slate-300 w-[100%] mb-1 p-2 text-center"
+              >
+                Find Me On Instagram
+              </li>
+            </a>
+          </ul>
+        </div>
+      </nav>
+        <!-- <div class="header ">
+      <h1 class="text-center text-slate-700 text-3xl p-3 font-extrabold" >Emagn</h1>
+    </div>   -->
+        <div
+          id="loading"
+          class="hidden flex h-[60vh] justify-center items-center"
+        >
+          <img width="100" height="100" src="./Loading_icon.gif" alt="" />
+        </div>
+
+        <div
+          class="intro-body search-bar flex flex-col h-[70vh] justify-center items-center m-3"
+        >
+          <!-- <h1 class="text-[25px] mb-7 text-slate-300" >Type Something You want to create</h1> -->
+          <form id="form" class="flex flex-col" action="">
+            <textarea
+              class="drop-shadow-md border-4 border-slate-500 w-full rounded-2xl text-gray-600 p-3 focus:outline-none focus:border-1 focus:border-violet-300 text-slate-600 text-lg placeholder:text-slate-300"
+              name="prompt"
+              id="prompt"
+              cols="40"
+              style="resize: none"
+              rows="3"
+              required
+              placeholder="Famous Quote By Pele. Include his name on the bottom"
+            ></textarea>
+
+            <input
+              class="rounded-2xl w-full py-3 border-4 my-3 hover:bg-slate-200 text-lg font-semibold"
+              type="submit"
+              id="submit-button"
+              value="GO!"
+            />
+          </form>
+        </div>
+        <script src="./script.js"></script>
+      </div>
+      <footer class="p-4 border-2 flex  absolute bottom-0 w-full  md:flex md:items-center md:justify-between md:p-6   "style="justify-content: center;">
+        <span class="text-sm text-slate-500 sm:text-center  text-center">© 2023 <a target="_blank" href="https://twitter.com/AdashBaral" class="hover:underline">Emagn : Aadarsh Baral</a>. All Rights Reserved.
+        </span>
+        <ul class="flex flex-wrap items-center mt-3 text-smtext-slate-500 sm:mt-0">
+      
+         
+        
+        </ul>
+    </footer>
+  </body>
+</html>

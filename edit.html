@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,700&family=Bad+Script&family=Fugaz+One&family=Leckerli+One&family=PT+Serif+Caption&family=Poppins&family=Rubik+Bubbles&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./colorpicker/coloris.css" />
+    <script src="http://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"
+      integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+    <script>
+      tailwind.config = {
+        theme: {
+          screens: {
+            sm: { max: "639px" },
+            // => @media (max-width: 639px) { ... }
+          },
+
+          fontFamily: {
+            arvo: ["Arvo"],
+          },
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <style>
+    .content {
+      background: rgba(94, 94, 94, 0.16);
+      color: white;
+    }
+    input {
+      width: 150px;
+      height: 32px;
+      padding: 0 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      box-sizing: border-box;
+    }
+
+    .examples {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .example {
+      flex-shrink: 0;
+      width: 300px;
+      margin-bottom: 30px;
+    }
+
+    .square .clr-field button,
+    .circle .clr-field button {
+      width: 22px;
+      height: 22px;
+      left: 5px;
+      right: auto;
+      border-radius: 5px;
+    }
+
+    .square .clr-field input,
+    .circle .clr-field input {
+      padding-left: 36px;
+    }
+
+    .circle .clr-field button {
+      border-radius: 50%;
+    }
+
+    .full .clr-field button {
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
+    }
+
+    .main-container {
+      max-width: 1300px;
+      margin: auto;
+    }
+
+    .content {
+      background: #664021a8;
+      color: rgb(255, 227, 163);
+    }
+    .content-box-img {
+      max-width: 600px;
+
+      background-image: url("https://images.unsplash.com/photo-1671227498016-93aa927686f8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 100%;
+      height: 100%;
+    }
+
+    .item1 {
+      grid-area: colorPicker;
+    }
+    .item2 {
+      grid-area: textArea;
+    }
+    .item3 {
+      grid-area: textTools;
+    }
+
+    .container {
+      margin: auto;
+      display: grid;
+      grid-gap: 20px;
+      grid-template-areas: " colorPicker textArea  textTools";
+    }
+    @media (max-width: 1080px) {
+      .container {
+        grid-template-areas:
+          "textArea"
+          "colorPicker"
+          "textTools";
+
+        justify-content: center;
+      }
+      .color-bar {
+        display: flex;
+        margin-top: 30px;
+      }
+    }
+  </style>
+  <body class="font-['Arvo'] bg-slate-100">
+    <!-- Navbar  -->
+    <!-- Navbar  -->
+    <!-- Navbar  -->
+    <!-- Navbar  -->
+    <!-- Navbar  -->
+    <!-- Navbar  -->
+    <!-- Navbar  -->
+    <!-- Navbar  -->
+    <nav class="p-3 border-gray-200 border-2">
+      <div
+        class="container flex flex-wrap items-center justify-between mx-auto"
+      >
+        <div class="flex mx-auto mt-auto">
+          <div>
+            <span
+              class="text-center text-3xl font-extrabold text-slate-700 cursor-default"
+              >Emagn</span
+            >
+          </div>
+
+          <div>
+            <a target="_blank" href="https://twitter.com/AdashBaral">
+              <span
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="fill-slate-700 mt-2 ml-4"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"
+                  /></svg
+              ></span>
+            </a>
+          </div>
+        </div>
+
+        <button
+          id="navbar-button"
+          data-collapse-toggle="navbar-hamburger"
+          type="button"
+          class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg hover:text-gray-100 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          aria-controls="navbar-hamburger"
+          aria-expanded="false"
+        >
+          <svg
+            class="w-6 h-6"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </button>
+        <div
+          class="hidden h-[20vh] navbar-hidden absolute right-3 top-20 w-[200px] rounded-md bg-slate-300 z-10 border-2 border-slate-700"
+          id="navbar-hamburger"
+        >
+          <ul
+            class="text-sm flex flex-col justify-center items-center h-[100%]"
+          >
+            <a
+              class="w-[100%]"
+              target="_blank"
+              href="https://aadarshbaral.github.io/portfolio/"
+            >
+              <li
+                class="bg-slate-200 hover:bg-slate-300 w-[100%] mb-1 p-2 text-center"
+              >
+                About Me
+              </li>
+            </a>
+            <a
+              class="w-[100%]"
+              target="_blank"
+              href="https://twitter.com/AdashBaral"
+            >
+              <li
+                class="bg-slate-200 hover:bg-slate-300 w-[100%] mb-1 p-2 text-center"
+              >
+                Find Me On Twitter
+              </li>
+            </a>
+            <a
+              class="w-[100%]"
+              target="_blank"
+              href="https://www.instagram.com/a_dash_baral/"
+            >
+              <li
+                class="bg-slate-200 hover:bg-slate-300 w-[100%] mb-1 p-2 text-center"
+              >
+                Find Me On Instagram
+              </li>
+            </a>
+          </ul>
+        </div>
+      </nav>
+        <!-- navbar end -->
+        <!-- navbar end -->
+        <!-- navbar end -->
+        <!-- navbar end -->
+        <!-- navbar end -->
+        <!-- navbar end -->
+        <!-- navbar end -->
+        <!-- navbar end -->
+        <!-- navbar end -->
+        <!-- navbar end -->
+
+        <div class="main-container mt-10">
+          <div class="container w-[100%]">
+            <!-- color bar -->
+            <!-- color bar -->
+            <!-- color bar -->
+            <!-- color bar -->
+            <div
+              class="item1 color-bar sm:flex sm:flex-col sm:justify-center sm:items-center"
+            >
+              <!-- Background color picker -->
+              <div class="examples">
+                <div class="example">
+                  <h1>Background Color & Transparency</h1>
+                  <input type="text" value="green" data-coloris />
+                </div>
+              </div>
+
+              <!-- font color picker -->
+
+              <div>
+                <p>Font Color</p>
+
+                <div
+                  class="list-to-color w-[300px] h-[300px] grid grid-cols-10 grid-rows-10"
+                >
+                  <div class="flex flex-row wrap mt-3 w-[300px]">
+                    <input
+                      class="code-value mr-3"
+                      type="text"
+                      placeholder="color-code"
+                    />
+                    <input
+                      class="code-set w-[50px] bg-slate-600 text-slate-100"
+                      type="submit"
+                      value="Set"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!-- font color picker  end-->
+            </div>
+
+            <!-- color-barend  -->
+
+            <!-- text area -->
+            <!-- text area -->
+            <!-- text area -->
+
+            <div class="text-container text-area sm:m-3">
+              <p>You can Edit The Text</p>
+              <div class="a content-box-img h-auto mr-3 mt-1">
+                <div
+                  id="content"
+                  class="content p-10 h-[100%] text-sm text-[16px]"
+                  contenteditable="true"
+                  spellcheck="false"
+                ></div>
+              </div>
+              <br />
+              <input
+                class="convert-to-canvas hover:bg-slate-300"
+                type="submit"
+                value="Download"
+              />
+              <input
+                class="hover:bg-slate-300"
+                type="submit"
+                onclick="CopyToClipboard('content')"
+                value="Copy Text"
+              />
+            </div>
+
+            <!-- text area end -->
+            <!-- text area end -->
+            <!-- text area end -->
+            <!-- text area end -->
+
+            <!-- text-tools start -->
+            <!-- text-tools start -->
+            <!-- text-tools start -->
+            <!-- text-tools start -->
+            <div
+              class="text-tools edit-bar w-[70%] h-[400px] grid sm:flex sm:flex-col sm:mt-[60px] sm:flex-wrap sm:m-3"
+            >
+              <!-- fontselector -->
+              <div class="font-selector">
+                <h1>Increase Font</h1>
+                <input
+                  class="font-select"
+                  type="range"
+                  name="rangeInput"
+                  min="15"
+                  max="24"
+                  oninput="document.querySelector('.content').style.fontSize =`${this.value}px`;
+                if (this.value > 20) document.querySelector('.content').style.lineHeight = 1.4;
+                
+                "
+                />
+                <p id="textInput"></p>
+              </div>
+              <!-- fontselector end -->
+
+              <!-- paddingselector -->
+              <div class="padding-selector">
+                <h1>Increase Padding</h1>
+                <input
+                  class="padding"
+                  type="range"
+                  name="rangeInput"
+                  min="10"
+                  max="50"
+                  oninput="document.querySelector('.content').style.padding =`${this.value}px`;
+      
+                
+                "
+                />
+              </div>
+
+              <!-- paddingselector end -->
+
+              <!-- image picker from url -->
+
+              <div class="image-url">
+                <h1>Add a Background Image</h1>
+                <h1 class="text-slate-400">
+                  Try changing the background <br />
+                  transparency if you dont <br />
+                  see the image,
+                </h1>
+
+                <div class="image-container flex flex-row mt-3">
+                  <input
+                    class="image-link"
+                    type="text"
+                    placeholder="Image Link"
+                  />
+
+                  <input
+                    class="get-image-link hover:bg-slate-300 ml-1"
+                    type="submit"
+                    value="Add"
+                  />
+                </div>
+              </div>
+
+              <!-- image picker from url end-->
+
+              <!-- fontselector -->
+
+              <div class="font-select flex row">
+                <select class="w-[60%] h-8 mr-1" name="fonts" id="fonts">
+                  <option style="font-family: 'Arvo', serif" value="Arvo">
+                    Arvo
+                  </option>
+
+                  <option
+                    style="font-family: 'Poppins', sans-serif"
+                    value="Poppins"
+                  >
+                    Poppins
+                  </option>
+                  <option
+                    style="font-family: 'PT Serif Caption', serif"
+                    value="'PT Serif',
+                  serif"
+                  >
+                    PT Serif
+                  </option>
+                  <option
+                    style="font-family: 'Rubik Bubbles', cursive"
+                    value="'Rubik Bubbles',cursive"
+                  >
+                    Rubik Bubble
+                  </option>
+                  <option
+                    style="font-family: 'Fugaz One'"
+                    value="'Fugaz One', cursive"
+                  >
+                    Fugaz One
+                  </option>
+                  <option
+                    style="font-family: 'Leckerli One', cursive"
+                    value="'Leckerli One', cursive"
+                  >
+                    Leckerli One
+                  </option>
+                </select>
+                <input
+                  class="w-[40%] font-submit hover:bg-slate-300"
+                  type="submit"
+                  value="Change Font"
+                />
+              </div>
+
+              <!-- fontselector end -->
+
+              <!-- text align -->
+              <div class="text-align flex flex-row">
+                <select
+                  name="text-align "
+                  id="text-align"
+                  class="w-[60%] h-8 mr-1"
+                >
+                  <option value="left">Left</option>
+                  <option value="center">Center</option>
+                  <option value="right">Right</option>
+                  <option value="justify">Justify</option>
+                </select>
+                <input
+                  type="submit"
+                  class="text-align-submit w-[40%] hover:bg-slate-300"
+                  value="Align Text"
+                />
+              </div>
+
+              <!-- text align end-->
+            </div>
+          </div>
+          <!-- texttools end -->
+          <!-- texttools end -->
+          <!-- texttools end -->
+          <!-- texttools end -->
+        </div>
+
+        <canvas id="canvas"></canvas>
+      </div>
+
+      <footer class="p-4 border-2 flex  absolute bottom-0 w-full  md:flex md:items-center md:justify-between md:p-6   "style="justify-content: center;">
+        <span class="text-sm text-slate-500 sm:text-center  text-center">© 2023 <a target="_blank" href="https://twitter.com/AdashBaral" class="hover:underline">Emagn : Aadarsh Baral</a>. All Rights Reserved.
+        </span>
+        <ul class="flex flex-wrap items-center mt-3 text-smtext-slate-500 sm:mt-0">
+      
+         
+    
+        </ul>
+    </footer>
+
+      <script type="text/javascript" src="./colorpicker/coloris.js"></script>
+      <script>
+        //font selector
+        let selectFonts = document.querySelector("#fonts");
+        let formSubmit = document.querySelector(".font-submit");
+        formSubmit.addEventListener("click", function (e) {
+          contentbox_img.style.fontFamily = `${selectFonts.value}`;
+        });
+        //text-align proplerties
+        let textAlignSubmit = document.querySelector(".text-align-submit");
+        let textAlignProperty = document.querySelector("#text-align");
+        textAlignSubmit.addEventListener("click", function () {
+          contentbox.style.textAlign = textAlignProperty.value;
+        });
+
+        let canvasConvert = document.querySelector(".convert-to-canvas");
+        canvasConvert.addEventListener("click", function () {
+          html2canvas(document.querySelector(".content-box-img"), {
+            logging: true,
+            letterRendering: 1,
+            allowTaint: false,
+            useCORS: true,
+          }).then((canvas) => {
+            let image = canvas.toDataURL();
+            // Create a link
+            let aDownloadLink = document.createElement("a");
+            // Add the name of the file to the link
+            aDownloadLink.download = "canvas_image.png";
+            // Attach the data to the link
+            aDownloadLink.href = image;
+            // Get the code to click the download link
+            aDownloadLink.click();
+            //  document.write('<img src="'+img+'"/>');
+          });
+        });
+
+        const searchParams = new URLSearchParams(window.location.search);
+        const details = searchParams.get("data");
+
+        d = details
+          .replace(/\\n/g, "<br>")
+          .replace(/\\/gi, "")
+          .replace('"', "");
+
+        let contentbox = document.querySelector(".content");
+        contentbox.insertAdjacentHTML("afterbegin", `${d}`);
+
+        //text copy function
+        function CopyToClipboard(containerid) {
+          if (document.selection) {
+            let range = document.body.createTextRange();
+            range.moveToElementText(document.getElementById(containerid));
+            range.select().createTextRange();
+            document.execCommand("copy");
+          } else if (window.getSelection) {
+            let range = document.createRange();
+
+            range.selectNode(document.getElementById(containerid));
+            window.getSelection().addRange(range);
+            document.execCommand("copy");
+          }
+        }
+
+        let color_list = [
+          "#DCD0FF",
+          "#FF0000",
+          "#030065",
+          "#FFFF00",
+          "#FFC0CB",
+          "#BF8359",
+          "#FFFFC2",
+          "#B48D51",
+          "#993430",
+          "#B8860B",
+          "#EDDBAC",
+          "#FFFFFF",
+          "#90EE90",
+          "#800080",
+          "#000000",
+          "#F0E2B6",
+          "#966F33",
+          "#3B2F2F",
+          "#550A35",
+          "#FFFFF0",
+          "#D3D3D3",
+          "#3CBC3C",
+          "#5EFB6E",
+          "#8B008B",
+          "#3333AB",
+          "#FFA89C",
+          "#F3C9B8",
+          "#F93FDF",
+          "#5E2882",
+          "#F1B9F6",
+          "#F79E89",
+          "#99573F",
+          "#DF98D9",
+          "#EF8CBC",
+          "#F1F4B6",
+          "#ADD8E6",
+          "#2916F5",
+          "#F58CAE",
+          "#EE97B1",
+          "#E41B17",
+          "#FF9EB0",
+          "#E99ADC",
+          "#E08ABE",
+          "#FBC955",
+          "#F3AFA6",
+          "#ABD7B5",
+          "#FEA3AA",
+          "#E48CE5",
+          "#C08458",
+          "#E3ABB2",
+          "#E69487",
+          "#E6A0FE",
+          "#AD6B53",
+          "#F8AE9D",
+          "#FF78FC",
+          "#AC8B7D",
+          "#F2E79B",
+          "#DEA9C9",
+          "#DB8383",
+          "#00008B",
+          "#FF00FF",
+          "#F4A782",
+          "#FBE2E0",
+          "#ECAC77",
+          "#87CEEB",
+          "#F244E0",
+          "#F2D8F7",
+          "#FDD2F4",
+          "#031A10",
+          "#EAADEF",
+          "#568739",
+          "#E7D5B5",
+          "#EAD887",
+          "#F4A27A",
+          "#D3B7C7",
+          "#FE9FB5",
+          "#EEB68D",
+          "#F6DCD1",
+          "#E02B4D",
+          "#F2AD54",
+          "#F5AD7E",
+          "#8F5C35",
+          "#054C5A",
+          "#AB7350",
+          "#DD87BD",
+          "#4C934C",
+          "#E4C923",
+          "#5347B5",
+          "#F3CCCA",
+          "#F5B784",
+          "#AE4496",
+          "#0000FF",
+          "#AE8BA0",
+          "#DEADFF",
+          "#EF95A9",
+          "#F0E9DC",
+          "#FBEEC9",
+          "#E797B4",
+          "#E4958B",
+          "#DAA3D2",
+        ];
+        let color_container = document.querySelector(".list-to-color");
+        color_list.forEach(function (elem) {
+          color_container.insertAdjacentHTML(
+            "afterbegin",
+            `    <div style="width:30px; height: 30px; background : ${elem}"class="swatch"></div>`
+          );
+        });
+
+        let color_swatches = document.querySelectorAll(".swatch");
+        color_swatches.forEach(function (elem) {
+          elem.addEventListener("click", function () {
+            contentbox.style.color = elem.style.backgroundColor;
+          });
+
+          elem.addEventListener("mouseover", function (e) {
+            elem.style.transform = "scale(2)";
+            elem.style.zIndex = 2;
+            elem.style.border = "1px solid white";
+          });
+          elem.addEventListener("mouseout", function (e) {
+            elem.style.transform = "scale(1)";
+            elem.style.zIndex = 0;
+            elem.style.border = "none";
+          });
+        });
+
+        let code_set_btn = document.querySelector(".code-set");
+        let code_value = document.querySelector(".code-value");
+        code_set_btn.addEventListener("click", function (e) {
+          e.preventDefault();
+          let code = code_value.value;
+          contentbox.style.color = code;
+        });
+
+        //  let font_selector = document.querySelector('.font-select')
+        //   font_selector.addEventListener('on',function(e){
+
+        //       contentbox.style.fontSize = font_selector.value
+        //   })
+        contentbox.innerText.length;
+        if (contentbox.innerText.length < 200) {
+          contentbox.style.display = "flex";
+          contentbox.style.alignItems = "center";
+          contentbox.style.justifyContent = "center";
+          contentbox.style.height = "400px";
+          //  contentbox.style.padding = "30px";
+        }
+        let contentbox_img = document.querySelector(".content-box-img");
+
+        let getImageLink = document.querySelector(".get-image-link");
+
+        getImageLink.addEventListener("click", function () {
+          let imageUrl = document.querySelector(".image-link");
+          if (imageUrl.value !== "") {
+            contentbox_img.style.backgroundImage = `url(${imageUrl.value})`;
+            imageUrl.style.border = "none";
+          } else {
+            imageUrl.style.border = "1px solid red";
+          }
+        });
+
+        ///navbar
+        let navBtn = document.querySelector("#navbar-button");
+        let hiddenBar = document.querySelector(".navbar-hidden");
+        navBtn.addEventListener("click", function (e) {
+          hiddenBar.classList.toggle("hidden");
+        });
+      </script>
+   
+  </body>
+</html>
