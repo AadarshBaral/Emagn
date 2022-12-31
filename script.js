@@ -34,7 +34,7 @@ document
       .then((data) => {
         new_data = JSON.stringify(data);
         window.location.href =
-          "/edit.html?data=" + encodeURIComponent(new_data);
+          "/Emagn/edit.html?data=" + encodeURIComponent(new_data);
       })
       .catch((error) => {
         console.error("Error:", error);
