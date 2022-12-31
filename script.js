@@ -41,21 +41,10 @@ document
       });
 
     let home_page = document.querySelector(".intro-body");
-    let loading_gif = document.querySelector('#loading')
-
-    if (home_page.style.display === 'none'){
-          home_page.style.display == 'block'
-    }else {
-
-      home_page.style.display = "none";
-
-    }
-
-    if (loading_gif.classList.contains("hidden")){
-          loading_gif.classlist.remove('hidden')
-    }else{
-      loading_gif.classList.add("hidden");
-    }
+    let loading_gif = document.querySelector("#loading")
+   
+    home_page.style.display = "none";
+    loading_gif.classList.remove("hidden");
   }
   });
 
