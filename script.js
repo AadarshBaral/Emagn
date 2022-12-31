@@ -23,7 +23,7 @@ document
     if (data['text'] !== '' && data['text'].split(' ').length >= 2 ){
 
   
-    fetch("http://aadarsh.pythonanywhere.com/", {
+    fetch("https://aadarsh.pythonanywhere.com/", {
       method: "POST", // or 'PUT'
       headers: {
         "Content-Type": "application/json",
